@@ -1,9 +1,6 @@
-import 'package:custom_navigation_bar/custom_navigation_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gradu_project/ui/home_screen/view/home_screen.dart';
-
-import '../../currency_screen/view/home_screen.dart';
+import '../../currency_screen/view/currency_mode.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -14,16 +11,22 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final bottomNavigationBarItems=[
+    const BottomNavigationBarItem(icon: Icon(Icons.camera_alt),label: 'camera mode'),
+    const BottomNavigationBarItem(icon: Icon(Icons.currency_pound),label: 'currency mode'),
+
+
+  ];
   PageController pageController=PageController(
     initialPage: 0,
-    keepPage: true,
+
   );
   onItemTapped(int i){
 
     pageController.jumpToPage(i);
-setState(() {
+    setState(() {
 
-});
+    });
 
 
   }
@@ -35,50 +38,32 @@ setState(() {
     });
 
   }
-  List<Widget> screens=[CameraScreen(),CurrencyScreen()];
+  List<Widget> screens=[ SceneApp(), CurrencyScreen(),];
   Widget build(BuildContext context) {
     double height =MediaQuery.of(context).size.height;
     double width =MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar:Container(
-          color: Colors.black,
-          height: height*.07,
-          width: width*.05,
-          child: CustomNavigationBar(
-            isFloating: true,
-            elevation: 0,
-            iconSize: height*.04,
-            borderRadius: const Radius.circular(50),
-            selectedColor: const Color.fromARGB(255, 255, 255, 255),
-            unSelectedColor: const Color.fromARGB(255, 129, 129, 129),
-            backgroundColor: const Color.fromARGB(255, 22, 22, 22),
-            strokeColor: Colors.black,
-            onTap: onItemTapped,
+          bottomNavigationBar: BottomNavigationBar(
+            onTap: (newIndex){
+              pageController.animateToPage(newIndex, duration: const Duration(milliseconds:500), curve: Curves.ease);
 
+            },
             currentIndex: currentIndex,
-            items: [
-              CustomNavigationBarItem(
-                  icon: Icon(Icons.camera_alt,
-                    color: currentIndex==0?Colors.blue:Colors.white
-                    ),
-              ),
-              CustomNavigationBarItem(
-                icon: Icon(Icons.currency_pound,
-                  color: currentIndex==1?Colors.blue:Colors.white,
-                ),
-              ),
-            ],
+            items: bottomNavigationBarItems,type: BottomNavigationBarType.fixed,
           ),
-        ),
-        body: PageView(
-          children: screens,
-          controller: pageController,
-          onPageChanged: onItemTapped,
-        )
+          body: PageView(
+            controller: pageController,
+            onPageChanged: (newIndex){
+              setState(() {
+                currentIndex=newIndex;
+              });
+            },
+            children: screens,
+
+          )
 
       ),
     );
   }
 }
-

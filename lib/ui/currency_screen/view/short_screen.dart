@@ -2,20 +2,20 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import '../../../main.dart';
-import '../../description_screen/view/description_screen.dart';
+import 'description_of_currency_mode.dart';
 
-class SceneApp extends StatefulWidget {
+class CameraApp extends StatefulWidget {
   /// Default Constructor
-  const SceneApp({super.key});
+  const CameraApp({super.key});
 
   @override
-  State<SceneApp> createState() => _SceneAppState();
+  State<CameraApp> createState() => _CameraAppState();
 }
 
-class _SceneAppState extends State<SceneApp> {
+class _CameraAppState extends State<CameraApp> {
   AudioPlayer? audioPlayer;
   void playAudio() async {
-    await audioPlayer?.play(AssetSource('scene_mode.aac'));
+    await audioPlayer?.play(AssetSource('currency_mode.aac'));
 
   }
   late CameraController controller;
@@ -32,7 +32,7 @@ class _SceneAppState extends State<SceneApp> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => DescriptionScreen(
+              builder: (context) => DescriptionScreenofCurrency(
                 file: file,
               )));
     } on CameraException catch (e) {
@@ -46,7 +46,7 @@ class _SceneAppState extends State<SceneApp> {
     super.initState();
     audioPlayer = AudioPlayer();
     playAudio();
-    controller = CameraController(cameras[0], ResolutionPreset.medium);
+    controller = CameraController(cameras[0], ResolutionPreset.max);
     controller.initialize().then((_) {
       if (!mounted) {
         return;
@@ -69,13 +69,13 @@ class _SceneAppState extends State<SceneApp> {
   @override
   void dispose() {
     super.dispose();
+
   }
 
   @override
   Widget build(BuildContext context) {
     double height=MediaQuery.of(context).size.height;
     double width=MediaQuery.of(context).size.width;
-
     if (!controller.value.isInitialized) {
       return Container();
     }
@@ -83,11 +83,12 @@ class _SceneAppState extends State<SceneApp> {
       Scaffold(
         body: InkWell(
           onTap: loadCamera,
-          child: Container(
+          child: SizedBox(
             height: height,
             child: CameraPreview(controller),
           ),
         ),
       );
+
   }
 }

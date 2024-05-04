@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:gradu_project/ui/home_screen/view/home_screen.dart';
-
 import '../Main_screen/view/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,9 +16,6 @@ class _SplashScreenState extends State<SplashScreen> {
   Timer? timer;
   void playAudio() async {
     await audioPlayer?.play(AssetSource('welcome.aac'));
-
-
-
   }
   startDelay(){
     timer=Timer(const Duration(seconds: 5), goNext);
@@ -56,9 +51,6 @@ class _SplashScreenState extends State<SplashScreen> {
         splashTransition:SplashTransition.fadeTransition,
         backgroundColor: Colors.white,
         animationDuration: const Duration(seconds: 1),
-
-
-
       ),
 
     );

@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:io';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:gradu_project/ui/query/view/query.dart';
+import 'package:gradu_project/ui/text_to_speech/text_to_speech_widget.dart';
 
 class DescriptionScreen extends StatefulWidget {
   XFile file;
@@ -14,16 +16,9 @@ class DescriptionScreen extends StatefulWidget {
 }
 
 class _DescriptionScreenState extends State<DescriptionScreen> {
-
-
-  // void onItemTapped(int i){
-  //   setState(() {
-  //     pageController.jumpToPage(i);
-  //   });
-  // }
   AudioPlayer? audioPlayer;
   void playAudio() async {
-    await audioPlayer?.play(AssetSource('camera mode.aac'));
+    await audioPlayer?.play(AssetSource('scene_mode.aac'));
   }
 
   @override
@@ -31,29 +26,26 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     File picture = File(widget.file.path);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: curentIndex,
-      //   onTap: (index){
-      //     onPageChanged(index);
-      //   }, items: const [
-      //   BottomNavigationBarItem(
-      //     icon: Icon(Icons.home),
-      //     label: 'Screen 1',
-      //   ),
-      //   BottomNavigationBarItem(
-      //     icon: Icon(Icons.business),
-      //     label: 'Screen 2',
-      //   ),
-      // ],
-      // ),
-      backgroundColor: Colors.white,
+    String? description = 'Welcome to deap eye, '
+        'Welcome alaa, '
+        'Welcome hossam, '
+        'Welcome mina, '
+        'Welcome hend, '
+        'Welcome mariam, '
+        'Welcome youmna, '
+        'Welcome alma, '
+        'Welcome ahmed, '
+        'Welcome hamdi, '
+        'Welcome ali, '
+        'Welcome rana, ';
 
+    return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           'Description',
           style: TextStyle(
-            fontSize: height * .02,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -68,24 +60,64 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
           icon: Icon(
             Icons.arrow_back,
             color: Colors.black,
-            size: height * .03,
+            size: 20,
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          Padding(
-            padding:  EdgeInsets.only(top: height*.2,),
-            child: Padding(
-              padding:  EdgeInsets.only(left: height*.066),
-              child: Image.file(
-                height: height*.60,
-                  picture,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.file(
+              height: height * 0.3,
+              picture,
+            ),
+            Expanded(
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 12),
+                    child: Text(
+                      description,
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-
-        ],
+            TextToSpeechWidget(
+              lastDescription: description,
+            ),
+            Container(
+              child: InkWell(
+                child: Center(
+                  child: Text(
+                    'Query?',
+                    style: TextStyle(
+                        color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Query(),
+                    ),
+                  );
+                },
+              ),
+              height: 150,
+              width: width,
+              decoration: BoxDecoration(
+                  color: Color(0XFFD1C4E7),
+                  borderRadius: BorderRadius.circular(20)),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradu_project/ui/Main_screen/cubit/state.dart';
-import '../../currency_screen/view/home_screen.dart';
+import '../../currency_screen/view/currency_mode.dart';
 import '../../home_screen/view/home_screen.dart';
 
 
@@ -15,7 +15,7 @@ class MainCubit extends Cubit <MainState>{
 
   );
   List<Widget> screens=[
-    const CameraScreen(),
+    const SceneApp(),
     const CurrencyScreen(),
   ];
   void changeCurrentIndex(int value){

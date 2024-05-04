@@ -7,6 +7,7 @@ pluginManagement {
         return flutterSdkPath
     }
     settings.ext.flutterSdkPath = flutterSdkPath()
+    ext.kotlin_version = '<latest-version>'
 
     includeBuild("${settings.ext.flutterSdkPath}/packages/flutter_tools/gradle")
 
