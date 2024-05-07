@@ -17,6 +17,7 @@ const  TextToSpeechWidget({super.key, required this.lastDescription} );
 enum TtsState { playing, stopped, paused, continued }
 
 class _MyAppState extends State<TextToSpeechWidget> {
+
   late FlutterTts flutterTts;
  // String? language = 'en';
   String? engine;
@@ -117,18 +118,24 @@ class _MyAppState extends State<TextToSpeechWidget> {
   }
 
    _speak() async {
+     var result = await flutterTts.stop();
     await flutterTts.setVolume(volume);
     await flutterTts.setSpeechRate(rate);
     await flutterTts.setPitch(pitch);
 
     if (widget.lastDescription!= null) {
-      if (widget.lastDescription!.isNotEmpty) {
+      if (widget.lastDescription!.isNotEmpty && result==1) {
         await flutterTts.speak(widget.lastDescription!);
-        var result = await flutterTts.stop();
-        if (result == 1) setState(() => ttsState = TtsState.stopped);
+
        // await flutterTts.stop();
       }
     }
+  }
+   speakText(String description)  {
+     flutterTts.setLanguage('en-US'); // Set the language (optional)
+     flutterTts.setPitch(1.0); // Set the pitch (1.0 is default)
+     flutterTts.setSpeechRate(1.0); // Set the speech rate (1.0 is default)
+     flutterTts.speak(description); // Convert text to speech
   }
 
   Future<void> _setAwaitOptions() async {
@@ -139,6 +146,7 @@ class _MyAppState extends State<TextToSpeechWidget> {
     var result = await flutterTts.stop();
     if (result == 1) setState(() => ttsState = TtsState.stopped);
   }
+
 
   Future<void> _pause() async {
     var result = await flutterTts.pause();
@@ -181,7 +189,7 @@ class _MyAppState extends State<TextToSpeechWidget> {
             children: [
              // _inputSection(),
              // _btnSection(),
-              _speak(),
+              //_speak(),
               //_engineSection(),
               //_futureBuilder(),
               //_buildSliders(),

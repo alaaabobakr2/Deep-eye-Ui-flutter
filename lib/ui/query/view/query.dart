@@ -1,11 +1,14 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import '../../home_screen/view/home_screen.dart';
 
 class Query extends StatelessWidget {
+  const Query({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
@@ -13,13 +16,18 @@ class Query extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  AudioPlayer? audioPlayer;
+  void playAudio() async {
+    await audioPlayer?.play(AssetSource('scene_mode.aac'));
+
+  }
   SpeechToText _speechToText = SpeechToText();
   bool _speechEnabled = false;
   String _lastWords = '';
@@ -66,7 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.white,
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>SceneApp()));
+          playAudio();
         },
         icon: Icon(
           Icons.arrow_back,

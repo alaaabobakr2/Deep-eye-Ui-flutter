@@ -4,6 +4,7 @@ import '../../currency_screen/view/currency_mode.dart';
 
 
 class MainScreen extends StatefulWidget {
+
   const MainScreen({super.key});
 
   @override
@@ -11,9 +12,10 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+
   final bottomNavigationBarItems=[
-    const BottomNavigationBarItem(icon: Icon(Icons.camera_alt),label: 'camera mode'),
-    const BottomNavigationBarItem(icon: Icon(Icons.currency_pound),label: 'currency mode'),
+    const BottomNavigationBarItem(icon: Icon(Icons.camera_alt),label: 'Scene Mode'),
+    const BottomNavigationBarItem(icon: Icon(Icons.currency_pound),label: 'Currency Mode'),
 
 
   ];

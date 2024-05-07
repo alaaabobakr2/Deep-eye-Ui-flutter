@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import '../../../main.dart';
 import 'description_of_currency_mode.dart';
 
@@ -13,6 +14,13 @@ class CameraApp extends StatefulWidget {
 }
 
 class _CameraAppState extends State<CameraApp> {
+  FlutterTts flutterTts = FlutterTts();
+  Future<void> speakText(String description) async {
+    await flutterTts.setLanguage('en-US'); // Set the language (optional)
+    await flutterTts.setPitch(1.0); // Set the pitch (1.0 is default)
+    await flutterTts.setSpeechRate(0.25); // Set the speech rate (1.0 is default)
+    await flutterTts.speak(description); // Convert text to speech
+  }
   AudioPlayer? audioPlayer;
   void playAudio() async {
     await audioPlayer?.play(AssetSource('currency_mode.aac'));
@@ -29,6 +37,7 @@ class _CameraAppState extends State<CameraApp> {
     try {
       await controller!.setFlashMode(FlashMode.auto);
       XFile file = await controller!.takePicture();
+      speakText('100 EG');
       Navigator.push(
           context,
           MaterialPageRoute(
