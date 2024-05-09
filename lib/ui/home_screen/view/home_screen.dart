@@ -14,17 +14,22 @@ class SceneApp extends StatefulWidget {
 }
 
 class _SceneAppState extends State<SceneApp> {
+
   AudioPlayer? audioPlayer;
   FlutterTts flutterTts = FlutterTts();
+
   Future<void> speakText(String description) async {
-    await flutterTts.setLanguage('ar-EG'); // Set the language (optional)
+    await flutterTts.setLanguage('en-US'); // Set the language (optional)
     await flutterTts.setPitch(.25); // Set the pitch (1.0 is default)
     await flutterTts.setSpeechRate(0.25); // Set the speech rate (1.0 is default)
     await flutterTts.speak(description); // Convert text to speech
   }
   void playAudio() async {
     await audioPlayer?.play(AssetSource('scene_mode.aac'));
-
+  }
+  AudioPlayer? audioPlayer3;
+  void playAudio3() async {
+    await audioPlayer3?.play(AssetSource('query.aac'));
   }
   late CameraController controller;
   loadCamera() async {
@@ -37,7 +42,8 @@ class _SceneAppState extends State<SceneApp> {
     try {
       await controller!.setFlashMode(FlashMode.auto);
       XFile file = await controller!.takePicture();
-      speakText('أهلا اللي تطبيق المكفوفين أهلا آلاء أهلا حسام أهلا علي أهلا مينا');
+      speakText(' this is a labtob in the table');
+
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -52,11 +58,13 @@ class _SceneAppState extends State<SceneApp> {
   }
 
 
+
   @override
   void initState() {
     super.initState();
     audioPlayer = AudioPlayer();
     playAudio();
+
 
     controller = CameraController(cameras[0], ResolutionPreset.medium);
     controller.initialize().then((_) {
@@ -93,6 +101,32 @@ class _SceneAppState extends State<SceneApp> {
     }
     return
       Scaffold(
+        drawer: Drawer(
+          backgroundColor: Colors.purple[500],
+          shadowColor: Colors.purple[500],
+        ),
+        appBar: AppBar(
+          actions: [
+            IconButton(onPressed: (){}, icon: Icon(
+              Icons.info_outline,
+              size: height*.035,
+              color:Colors.black,
+            ),),
+          ],
+          backgroundColor: Colors.white,
+          title: Text(
+            'Scene Mode',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: height*.025,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          centerTitle: true,
+          elevation: 0,
+
+
+        ),
         body: InkWell(
           onTap: loadCamera,
           child: Container(

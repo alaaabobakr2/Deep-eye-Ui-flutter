@@ -14,7 +14,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
 
   final bottomNavigationBarItems=[
-    const BottomNavigationBarItem(icon: Icon(Icons.camera_alt),label: 'Scene Mode'),
+    const BottomNavigationBarItem(icon: Icon(Icons.camera_alt),label: 'Scene Mode',),
     const BottomNavigationBarItem(icon: Icon(Icons.currency_pound),label: 'Currency Mode'),
 
 

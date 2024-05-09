@@ -37,7 +37,7 @@ class _CameraAppState extends State<CameraApp> {
     try {
       await controller!.setFlashMode(FlashMode.auto);
       XFile file = await controller!.takePicture();
-      speakText('100 EG');
+      speakText('100 L.E');
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -90,6 +90,32 @@ class _CameraAppState extends State<CameraApp> {
     }
     return
       Scaffold(
+        drawer: Drawer(
+          backgroundColor: Colors.white,
+          shadowColor: Colors.purple[500],
+        ),
+        appBar: AppBar(
+          actions: [
+            IconButton(onPressed: (){}, icon: Icon(
+              Icons.info_outline,
+              size: height*.035,
+              color:Colors.black,
+            ),),
+          ],
+          backgroundColor: Colors.white,
+          title: Text(
+            'Currency Mode',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: height*.025,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          centerTitle: true,
+          elevation: 0,
+
+
+        ),
         body: InkWell(
           onTap: loadCamera,
           child: SizedBox(

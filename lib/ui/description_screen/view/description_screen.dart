@@ -18,15 +18,19 @@ class DescriptionScreen extends StatefulWidget {
 
 class _DescriptionScreenState extends State<DescriptionScreen> {
   AudioPlayer? audioPlayer;
+  AudioPlayer? audioPlayer2;
   FlutterTts flutterTts = FlutterTts();
 
   void playAudio() async {
-    await audioPlayer?.play(AssetSource('scene_mode.aac'));
+    await audioPlayer?.play(AssetSource('query.aac'));
+  }
+  void playAudio2() async {
+    await audioPlayer2?.play(AssetSource('scene_mode.aac'));
   }
   Future<void> speakText(String description) async {
-    await flutterTts.setLanguage('ar-EG'); // Set the language (optional)
+    await flutterTts.setLanguage('en-US'); // Set the language (optional)
     await flutterTts.setPitch(1.0); // Set the pitch (1.0 is default)
-    await flutterTts.setSpeechRate(0.5); // Set the speech rate (1.0 is default)
+    await flutterTts.setSpeechRate(0.25); // Set the speech rate (1.0 is default)
     await flutterTts.speak(description); // Convert text to speech
   }
 
@@ -36,7 +40,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     File picture = File(widget.file.path);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    String? description = 'اهلا اللي تطبيق المكفوفين اهلا الاء اهلا حسام اهلا علي اهلا مينا';
+    String? description = 'this is a labtob in the table';
 
     return Scaffold(
       backgroundColor: Colors.white,

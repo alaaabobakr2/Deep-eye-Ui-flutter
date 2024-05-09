@@ -31,14 +31,14 @@ class _DescriptionScreenofCurrencyState extends State<DescriptionScreenofCurrenc
     File picture = File(widget.file.path);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    String? description ='100 EG';
+    String? description ='100 L.E';
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Description',
+          'Currency Recognition',
           style: TextStyle(
-            fontSize: height * .02,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -53,7 +53,7 @@ class _DescriptionScreenofCurrencyState extends State<DescriptionScreenofCurrenc
           icon: Icon(
             Icons.arrow_back,
             color: Colors.black,
-            size: height * .03,
+            size: height * .033,
           ),
         ),
       ),
@@ -78,7 +78,7 @@ class _DescriptionScreenofCurrencyState extends State<DescriptionScreenofCurrenc
             child: Center(
               child: InkWell(
                 onTap: (){
-                  speakText('100 EG');
+                  speakText('100 L.E');
                 },
                 child: Text(
                   description,

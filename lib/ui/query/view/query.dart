@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import '../../home_screen/view/home_screen.dart';
@@ -23,19 +24,43 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   AudioPlayer? audioPlayer;
   void playAudio() async {
-    await audioPlayer?.play(AssetSource('scene_mode.aac'));
+    await audioPlayer?.play(AssetSource('ask_your_question.aac'));
+
+  }
+  AudioPlayer? audioPlayer3;
+  void playAudio3() async {
+    await audioPlayer?.play(AssetSource('query.aac'));
 
   }
   SpeechToText _speechToText = SpeechToText();
   bool _speechEnabled = false;
+  String words ='hello world';
   String _lastWords = '';
+  FlutterTts flutterTts = FlutterTts();
+  Future<void> speakText(String description) async {
+    await flutterTts.setLanguage('en-US'); // Set the language (optional)
+    await flutterTts.setPitch(.25); // Set the pitch (1.0 is default)
+    await flutterTts.setSpeechRate(0.25); // Set the speech rate (1.0 is default)
+    await flutterTts.speak(description); // Convert text to speech
+  }
+  AudioPlayer? audioPlayer2;
+  void playAudio2() async {
+    await audioPlayer2?.play(AssetSource('scene_mode.aac'));
+
+  }
+
+
 
   @override
   void initState() {
     super.initState();
+    audioPlayer = AudioPlayer();
+    playAudio3();
     _initSpeech();
+
   }
 
   void _initSpeech() async {
@@ -50,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _stopListening() async {
     await _speechToText.stop();
+    await speakText(words);
     setState(() {});
   }
 
@@ -75,7 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
       leading: IconButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context)=>SceneApp()));
-          playAudio();
+          playAudio2();
+          playAudio3();
         },
         icon: Icon(
           Icons.arrow_back,
@@ -119,6 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+
           ],
         ),
       ),
